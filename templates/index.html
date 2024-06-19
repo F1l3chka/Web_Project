@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greatest Blog of all Time</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+</head>
+<body>
+
+    <!-- Background -->
+    <div id="large-header" class="large-header">
+        <img src="static/jpg/galaxy.jpg" class="large-header"/>
+        <canvas id="demo-canvas"></canvas>
+
+        <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js"></script>
+        <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js"></script>
+        <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
+    </div>
+
+      <!-- Main -->
+
+      <div class="main-div">
+
+
+        <!-- Nav -->
+        <header class="topnav">
+            <ul class="topnav__navigation">
+                <li class="navigation__element"><a href="\login" class="active element__link">Войти</a></li>
+                <li class="navigation__element"><a href="\registration" class="element__link">Зарегистрироваться</a></li>
+                <li class="navigation__element"><a href="\blog" class="element__link">Добавить сообщение</a></li>
+                <li class="navigation__element">
+                  <form action="/logout/" method="post">
+                    {% csrf_token %}
+                    <input class="element__link" type="submit" value="Выйти"/>
+                  </form>
+                </li>
+            </ul>
+        </header>
+
+        <div class="main__page">
+        <!-- Container -->
+        <div class="main__container">
+
+          <div class="container">
+              {% for msg in messages %}
+                <div class="container-info">
+                    <div>{{msg.sender.username}}</div>
+                    <div>{{msg.create_time}}</div>
+                </div>
+                <div class="message">{{msg.text}}</div>
+                <br><br>
+              {% endfor %}
+          </div>
+        </div>
+
+          <!-- News -->
+          <div class="news">
+             <p>Космос: Безграничный океан тайн и открытий
+                Космос. Это слово, вызывающее в воображении бесконечные просторы, мерцающие звезды, таинственные галактики и невообразимые космические объекты. Огромный, темный, но при этом чарующий своей загадочностью и красотой, космос всегда манил человечество, толкая его к исследованию и познанию своих глубин.
+
+                Космическая бездна: от атома до галактики
+
+                Космос – это не просто пустота. Это грандиозная вселенная, наполненная мириадами объектов, от крошечных атомов до гигантских галактик.
+
+                Атомы – строительные блоки всего сущего: В основе всего, что мы видим, от мельчайших частиц пыли до величественных звезд, лежат атомы – мельчайшие частицы вещества. Они составляют молекулы, которые, в свою очередь, образуют все объекты, известные нам.
+
+                Звезды – космические печи: Звезды – это гигантские сферы из горячего газа, которые излучают свет и тепло благодаря ядерным реакциям в их недрах. Их жизнь коротка, но ярка. От небольших красных карликов до гигантских голубых сверхгигантов, звезды различаются по размеру, температуре и возрасту.
+
+                Планеты – небесные тела, вращающиеся вокруг звезд: Планеты – это небесные объекты, не излучающие собственного света, а отражающие свет звезды, вокруг которой они вращаются. В нашей Солнечной системе восемь планет: Меркурий, Венера, Земля, Марс, Юпитер, Сатурн, Уран и Нептун.
+
+                Галактики – острова звезд: Галактики – это гигантские скопления звезд, газа, пыли и темной материи. Наша галактика, Млечный Путь, содержит около 200 миллиардов звезд. Существуют спиральные, эллиптические и неправильные галактики.
+
+                Черные дыры – космические монстры: Черные дыры – это области пространства-времени с такой сильной гравитацией, что даже свет не может из них вырваться. Они образуются при коллапсе массивных звезд.
+
+                Темная материя – загадочный компонент Вселенной: Темная материя – это гипотетическая форма материи, которая не взаимодействует с электромагнитным излучением и поэтому невидима. Она составляет около 85% всей материи во Вселенной, но ее природа до сих пор остается загадкой.
+
+                Космос – не просто пространство, но и время: Время – это четвертое измерение, которое тесно связано с пространством. В космосе время течет по-разному в разных местах. Например, возле черной дыры время течет медленнее, чем на Земле.
+
+                Космос – место, где происходят удивительные процессы: В космосе постоянно происходят различные процессы: взрывы сверхновых, образование новых звезд, столкновения галактик, формирование планетных систем. Эти процессы оставляют свой след на истории Вселенной и влияют на ее будущее.
+
+                Человечество и космос: история взаимоотношений
+
+                С древних времен человечество стремилось постичь тайны космоса. Первые наблюдения за звездами позволили людям ориентироваться в пространстве и времени, создавать календари и предсказывать погоду.
+
+                Древние астрономы: Египетские жрецы, вавилонские астрологи, древнегреческие философы – все они внесли свой вклад в развитие астрономии, делая первые наблюдения и создавая первые модели Вселенной.
+
+                 Революция в астрономии: В 16 веке Николай Коперник доказал, что Земля вращается вокруг Солнца, а не наоборот. Эта революционная идея стала началом новой эры в астрономии, открыв путь для новых открытий и исследований.
+
+                 Космическая гонка: В XX веке началась космическая гонка между США и СССР, которая привела к появлению первых искусственных спутников, полетам человека в космос и высадке на Луну.
+
+                 Современные исследования космоса: Сегодня космос изучается с помощью мощных телескопов, космических зондов и международных космических станций. Человечество ищет ответы на вопросы о происхождении Вселенной, о существовании внеземной жизни, о возможности освоения других планет.
+
+                 Космос: источник вдохновения и надежды
+
+                 Космос – это не просто место, это источник вдохновения и надежды.
+
+                 Красота и величие космоса: В космическом пространстве можно наблюдать потрясающие по своей красоте явления: мерцание звезд, сияние галактик, танцы туманностей. Космос заставляет нас задуматься о месте человека в Вселенной, о ее бескрайности и величии.
+
+                 Космос – источник научных открытий: Исследования космоса дают нам новые знания о физических законах, о строении Вселенной, о происхождении жизни. Они помогают нам понять себя и свое место в мире.
+
+                 Космос – символ надежды: Космос – это место, где мы можем построить новое будущее, освоить новые планеты и создать новую цивилизацию. Он дает нам надежду на то, что человечество может преодолеть все трудности и достичь новых вершин.
+                 Заключение
+
+                 Космос – это бескрайний океан тайн и открытий. Он увлекает нас своей загадочностью, вдохновляет своей красотой и даёт нам надежду на будущее. Исследование космоса – это не просто научная задача, это путь к познанию себя и своего места в Вселенной.
+             </p>
+          </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer">
+
+          <div class="name_creator">
+            <h3>Филимонов Ярослав</h3>
+          </div>
+
+          <div class="copyrighting">
+            © 2024 Дипломная работа
+
+</div>
+
+            <ul class="url_on_social">
+              <li class="social_icons"><a href="https://t.me/F1lya_11"><i class="fa-brands fa-telegram fa-lg"></i></a></li>
+              <li class="social_icons"><a href="https://www.instagram.com/yarick11?igsh=c29zNTEybGlwZXVr&utm_source=qr"><i class="fa-brands fa-instagram fa-lg"></i></a></li>
+              <li class="social_icons"><a href="https://vk.com/fillya21"><i class="fa-brands fa-vk fa-lg"></i></a></li>
+            </ul>
+
+        </footer>
+
+      </div>
+
+    <script id="rendered-js">
+
+      (function () {
+
+        var width,height,largeHeader,canvas,ctx,points,target,animateHeader = true;
+
+        // Main
+        initHeader();
+        initAnimation();
+        addListeners();
+
+        function initHeader() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          target = { x: width / 2, y: height / 2 };
+
+          largeHeader = document.getElementById('large-header');
+          largeHeader.style.height = height + 'px';
+
+          canvas = document.getElementById('demo-canvas');
+          canvas.width = width;
+          canvas.height = height;
+          ctx = canvas.getContext('2d');
+
+          // create points
+          points = [];
+          for (var x = 0; x < width; x = x + width / 20) {
+            for (var y = 0; y < height; y = y + height / 20) {
+              var px = x + Math.random() * width / 20;
+              var py = y + Math.random() * height / 20;
+              var p = { x: px, originX: px, y: py, originY: py };
+              points.push(p);
+            }
+          }
+
+          // for each point find the 5 closest points
+          for (var i = 0; i < points.length; i++) {
+            var closest = [];
+            var p1 = points[i];
+            for (var j = 0; j < points.length; j++) {
+              var p2 = points[j];
+              if (!(p1 == p2)) {
+                var placed = false;
+                for (var k = 0; k < 5; k++) {
+                  if (!placed) {
+                    if (closest[k] == undefined) {
+                      closest[k] = p2;
+                      placed = true;
+                    }
+                  }
+                }
+
+                for (var k = 0; k < 5; k++) {
+                  if (!placed) {
+                    if (getDistance(p1, p2) < getDistance(p1, closest[k])) {
+                      closest[k] = p2;
+                      placed = true;
+                    }
+                  }
+                }
+              }
+            }
+            p1.closest = closest;
+          }
+
+          // assign a circle to each point
+          for (var i in points) {
+            var c = new Circle(points[i], 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
+            points[i].circle = c;
+          }
+        }
+
+        // Event handling
+        function addListeners() {
+          if (!('ontouchstart' in window)) {
+            window.addEventListener('mousemove', mouseMove);
+          }
+          window.addEventListener('scroll', scrollCheck);
+          window.addEventListener('resize', resize);
+        }
+
+        function mouseMove(e) {
+          var posx = posy = 0;
+          if (e.pageX || e.pageY) {
+            posx = e.pageX;
+            posy = e.pageY;
+          } else
+          if (e.clientX || e.clientY) {
+            posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+          }
+          target.x = posx;
+          target.y = posy;
+        }
+
+        function scrollCheck() {
+          if (document.body.scrollTop > height) animateHeader = false;else
+          animateHeader = true;
+        }
+
+        function resize() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          largeHeader.style.height = height + 'px';
+          canvas.width = width;
+          canvas.height = height;
+        }
+
+        // animation
+        function initAnimation() {
+          animate();
+          for (var i in points) {
+            shiftPoint(points[i]);
+          }
+        }
+
+        function animate() {
+          if (animateHeader) {
+            ctx.clearRect(0, 0, width, height);
+            for (var i in points) {
+              // detect points in range
+              if (Math.abs(getDistance(target, points[i])) < 4000) {
+                points[i].active = 0.3;
+                points[i].circle.active = 0.6;
+              } else if (Math.abs(getDistance(target, points[i])) < 20000) {
+                points[i].active = 0.1;
+                points[i].circle.active = 0.3;
+              } else if (Math.abs(getDistance(target, points[i])) < 40000) {
+                points[i].active = 0.02;
+                points[i].circle.active = 0.1;
+              } else {
+                points[i].active = 0;
+                points[i].circle.active = 0;
+              }
+
+              drawLines(points[i]);
+              points[i].circle.draw();
+            }
+          }
+          requestAnimationFrame(animate);
+        }
+
+        function shiftPoint(p) {
+          TweenLite.to(p, 1 + 1 * Math.random(), { x: p.originX - 50 + Math.random() * 100,
+            y: p.originY - 50 + Math.random() * 100, ease: Circ.easeInOut,
+            onComplete: function () {
+              shiftPoint(p);
+            } });
+        }
+
+        // Canvas manipulation
+        function drawLines(p) {
+          if (!p.active) return;
+          for (var i in p.closest) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.closest[i].x, p.closest[i].y);
+            ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')';
+            ctx.stroke();
+          }
+        }
+
+        function Circle(pos, rad, color) {
+          var _this = this;
+
+          // constructor
+          (function () {
+            _this.pos = pos || null;
+            _this.radius = rad || null;
+            _this.color = color || null;
+          })();
+
+          this.draw = function () {
+            if (!_this.active) return;
+            ctx.beginPath();
+            ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'rgba(156,217,249,' + _this.active + ')';
+            ctx.fill();
+          };
+        }
+
+        // Util
+        function getDistance(p1, p2) {
+          return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
+        }
+
+      })();
+      //# sourceURL=pen.js
+    </script>
+    <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js"></script>
+    <script src="https://kit.fontawesome.com/cfcdfb1265.js" crossorigin="anonymous"></script>
+</body>
+</html>

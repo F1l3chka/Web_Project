@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Blog</title>
+     <link rel="stylesheet" type="text/css" href="{% static 'css/blog_add_style.css'%}"/>
+</head>
+<body class="main">
+    <form action="/blog" method="post">
+        <div class="fieldtext">
+        {% csrf_token %}
+    	{{ form }}
+        </div>
+		<p><input type="submit"></p>
+    </form>
+</body>
+</html>

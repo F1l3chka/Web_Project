@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js"></script>
+    <link rel="canonical" href="https://codepen.io/MarcoGuglielmelli/pen/ExGYae">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200,400,800" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+</head>
+<body>
+    <div id="large-header" class="large-header" style="height: 218px;">
+        <canvas id="demo-canvas" width="463" height="218"></canvas>
+    </div>
+    
+    <div id="main" class="main">
+
+        <header class="header__menu">
+
+            <h1 class="header__menu__title">COSMOS</h1>
+
+            <ol class="header__menu__flex">
+
+                <li class="header__menu__flex__element"><a href="" class="header__menu__flex__element__link">Идеи</a></li>
+                <li class="header__menu__flex__element"><a href="" class="header__menu__flex__element__link">Варианты</a></li>
+                <li class="header__menu__flex__element"><a href="" class="header__menu__flex__element__link">Вопросы</a></li>
+                <li class="header__menu__flex__element"><a href="" class="header__menu__flex__element__link">Обратная связь</a></li>
+
+            </ol>
+
+        </header>
+
+        
+
+    </div>
+    
+
+
+
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/EasePack.min.js"></script>
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/rAF.js"></script>
+    <script src="https://www.marcoguglie.it/Codepen/AnimatedHeaderBg/demo-1/js/TweenLite.min.js"></script>
+    <script id="rendered-js">
+      (function () {
+      
+        var width,height,largeHeader,canvas,ctx,points,target,animateHeader = true;
+      
+        // Main
+        initHeader();
+        initAnimation();
+        addListeners();
+      
+        function initHeader() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          target = { x: width / 2, y: height / 2 };
+      
+          largeHeader = document.getElementById('large-header');
+          largeHeader.style.height = height + 'px';
+      
+          canvas = document.getElementById('demo-canvas');
+          canvas.width = width;
+          canvas.height = height;
+          ctx = canvas.getContext('2d');
+      
+          // create points
+          points = [];
+          for (var x = 0; x < width; x = x + width / 20) {
+            for (var y = 0; y < height; y = y + height / 20) {
+              var px = x + Math.random() * width / 20;
+              var py = y + Math.random() * height / 20;
+              var p = { x: px, originX: px, y: py, originY: py };
+              points.push(p);
+            }
+          }
+      
+          // for each point find the 5 closest points
+          for (var i = 0; i < points.length; i++) {
+            var closest = [];
+            var p1 = points[i];
+            for (var j = 0; j < points.length; j++) {
+              var p2 = points[j];
+              if (!(p1 == p2)) {
+                var placed = false;
+                for (var k = 0; k < 5; k++) {
+                  if (!placed) {
+                    if (closest[k] == undefined) {
+                      closest[k] = p2;
+                      placed = true;
+                    }
+                  }
+                }
+      
+                for (var k = 0; k < 5; k++) {
+                  if (!placed) {
+                    if (getDistance(p1, p2) < getDistance(p1, closest[k])) {
+                      closest[k] = p2;
+                      placed = true;
+                    }
+                  }
+                }
+              }
+            }
+            p1.closest = closest;
+          }
+      
+          // assign a circle to each point
+          for (var i in points) {
+            var c = new Circle(points[i], 2 + Math.random() * 2, 'rgba(255,255,255,0.3)');
+            points[i].circle = c;
+          }
+        }
+      
+        // Event handling
+        function addListeners() {
+          if (!('ontouchstart' in window)) {
+            window.addEventListener('mousemove', mouseMove);
+          }
+          window.addEventListener('scroll', scrollCheck);
+          window.addEventListener('resize', resize);
+        }
+      
+        function mouseMove(e) {
+          var posx = posy = 0;
+          if (e.pageX || e.pageY) {
+            posx = e.pageX;
+            posy = e.pageY;
+          } else
+          if (e.clientX || e.clientY) {
+            posx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+          }
+          target.x = posx;
+          target.y = posy;
+        }
+      
+        function scrollCheck() {
+          if (document.body.scrollTop > height) animateHeader = false;else
+          animateHeader = true;
+        }
+      
+        function resize() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          largeHeader.style.height = height + 'px';
+          canvas.width = width;
+          canvas.height = height;
+        }
+      
+        // animation
+        function initAnimation() {
+          animate();
+          for (var i in points) {
+            shiftPoint(points[i]);
+          }
+        }
+      
+        function animate() {
+          if (animateHeader) {
+            ctx.clearRect(0, 0, width, height);
+            for (var i in points) {
+              // detect points in range
+              if (Math.abs(getDistance(target, points[i])) < 4000) {
+                points[i].active = 0.3;
+                points[i].circle.active = 0.6;
+              } else if (Math.abs(getDistance(target, points[i])) < 20000) {
+                points[i].active = 0.1;
+                points[i].circle.active = 0.3;
+              } else if (Math.abs(getDistance(target, points[i])) < 40000) {
+                points[i].active = 0.02;
+                points[i].circle.active = 0.1;
+              } else {
+                points[i].active = 0;
+                points[i].circle.active = 0;
+              }
+      
+              drawLines(points[i]);
+              points[i].circle.draw();
+            }
+          }
+          requestAnimationFrame(animate);
+        }
+      
+        function shiftPoint(p) {
+          TweenLite.to(p, 1 + 1 * Math.random(), { x: p.originX - 50 + Math.random() * 100,
+            y: p.originY - 50 + Math.random() * 100, ease: Circ.easeInOut,
+            onComplete: function () {
+              shiftPoint(p);
+            } });
+        }
+      
+        // Canvas manipulation
+        function drawLines(p) {
+          if (!p.active) return;
+          for (var i in p.closest) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.closest[i].x, p.closest[i].y);
+            ctx.strokeStyle = 'rgba(156,217,249,' + p.active + ')';
+            ctx.stroke();
+          }
+        }
+      
+        function Circle(pos, rad, color) {
+          var _this = this;
+      
+          // constructor
+          (function () {
+            _this.pos = pos || null;
+            _this.radius = rad || null;
+            _this.color = color || null;
+          })();
+      
+          this.draw = function () {
+            if (!_this.active) return;
+            ctx.beginPath();
+            ctx.arc(_this.pos.x, _this.pos.y, _this.radius, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'rgba(156,217,249,' + _this.active + ')';
+            ctx.fill();
+          };
+        }
+      
+        // Util
+        function getDistance(p1, p2) {
+          return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
+        }
+      
+      })();
+      //# sourceURL=pen.js
+    </script>
+    <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-44fe83e49b63affec96918c9af88c0d80b209a862cf87ac46bc933074b8c557d.js"></script>
+
+</body>
+</html>
